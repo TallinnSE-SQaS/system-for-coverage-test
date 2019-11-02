@@ -51,6 +51,10 @@ def student_input():
                 with open('student_database.csv', 'a') as fs:
                     data = csv.writer(fs)
                     data.writerow([student_id, name, age, gender, department])
+                with open('student_database.csv') as infile, open('student_database_final.csv', 'w') as outfile:
+                    for line in infile:
+                        if not line.strip(): continue  # skip the empty line
+                        outfile.write(line)  # non-empty line. Write it to output
             else:
                 name = first_name + ' ' + last_name
 
@@ -58,6 +62,10 @@ def student_input():
                 with open('student_database.csv', 'a') as fs:
                     data = csv.writer(fs)
                     data.writerow([student_id, name, age, gender, department])
+                with open('student_database.csv') as infile, open('student_database_final.csv', 'w') as outfile:
+                    for line in infile:
+                        if not line.strip(): continue  # skip the empty line
+                        outfile.write(line)  # non-empty line. Write it to output              
             print()
 
             msg = '[!] Please wait. \n\n' + tab * 4 + 'Saving'
@@ -91,7 +99,7 @@ def student_database():
     design.art('Student Database')
 
     try:
-        with open('student_database.csv', 'r') as fr:
+        with open('student_database_final.csv', 'r') as fr:
             data_table = from_csv(fr, field_names=['Student ID', 'Student Name', 'Age', 'Gender', 'Department'])
 
         # Show student database
@@ -120,8 +128,46 @@ def student_database():
 def search_student(search='id'):
     if search == 'id':
         print('[1] Searching by ID')
+        with open('student_database_final.csv', 'r') as fr:
+            data_table = from_csv(fr, field_names=['Student ID', 'Student Name', 'Age', 'Gender', 'Department'])
+            print(data_table)
+            choice = input('\nPlease enter your choice:\n'
+                   '[1] Main Menu\n'
+                   '\n'
+                   'admin@sms:~$ ')
+
+            if choice == '1':
+                main.StartMain.main(self='self')
+            else:
+                print()
+                print('[X] Wrong Input!')
+                time.sleep(.50)
+                if operating_system == 'Linux':
+                    os.system('clear')
+                elif operating_system == 'Windows':
+                    os.system('cls')
+                student_database()
     elif search == 'first_name':
         print('[2] Searching by First Name')
+        with open('student_database_final.csv', 'r') as fr:
+            data_table = from_csv(fr, field_names=['Student ID', 'Student Name', 'Age', 'Gender', 'Department'])
+            print(data_table)
+            choice = input('\nPlease enter your choice:\n'
+                   '[1] Main Menu\n'
+                   '\n'
+                   'admin@sms:~$ ')
+
+            if choice == '1':
+                main.StartMain.main(self='self')
+            else:
+                print()
+                print('[X] Wrong Input!')
+                time.sleep(.50)
+                if operating_system == 'Linux':
+                    os.system('clear')
+                elif operating_system == 'Windows':
+                    os.system('cls')
+                student_database()
 
 
 def search():
@@ -141,7 +187,7 @@ def search():
     elif choice is '2':
         search_student(search='first_name')
     elif choice is '3':
-        pass
+        main.StartMain.main(self='self')
     else:
         print()
         print('[X] Wrong Input!')

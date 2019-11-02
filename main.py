@@ -33,7 +33,7 @@ class StartMain:
         elif choice == '2':
             st.student_database()
         elif choice is '3':
-            st.search_student()
+            st.search()
         elif choice is '4':
             print()
 
